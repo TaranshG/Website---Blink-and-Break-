@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blink & Break — Eye Care Chrome Extension | 20-20-20 Rule</title>
+  <meta name="description" content="Blink & Break is a free Chrome extension that gently reminds you to follow the 20-20-20 rule. Reduce eye strain, dry eyes, and screen fatigue with customizable break reminders." />
+  <meta name="keywords" content="20-20-20 rule extension, eye strain chrome extension, screen break reminder, reduce digital eye strain, study break tool, eye care extension" />
+  <meta property="og:title" content="Blink & Break — Gentle Eye Care for Your Screen Time" />
+  <meta property="og:description" content="A calm, privacy-first Chrome extension that helps you protect your eyes with the 20-20-20 rule." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0e0c18;
+      --ink-soft: #3d3952;
+      --ink-muted: #7c788f;
+      --cream: #f6f4f0;
+      --cream-warm: #ede9e3;
+      --lilac: #c4b8f0;
+      --violet: #7c5cbf;
+      --violet-deep: #4a3580;
+      --mint: #a8d8c8;
+      --glow: rgba(124,92,191,0.18);
+      --card-bg: rgba(255,255,255,0.6);
+      --border: rgba(196,184,240,0.3);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(246,244,240,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.35rem;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-logo span { font-style: italic; color: var(--violet); }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--ink-soft); font-size: 0.9rem; font-weight: 400; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--ink); }
+    .btn-nav {
+      background: var(--ink); color: var(--cream); padding: 9px 20px;
+      border-radius: 100px; font-size: 0.85rem; font-weight: 500;
+      text-decoration: none; transition: background 0.2s, transform 0.15s;
+      border: none; cursor: pointer;
+    }
+    .btn-nav:hover { background: var(--violet-deep); transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 24px 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(196,184,240,0.35) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 80% 80%, rgba(168,216,200,0.2) 0%, transparent 60%),
+        var(--cream);
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 780px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: white; border: 1px solid var(--border);
+      padding: 6px 14px; border-radius: 100px;
+      font-size: 0.8rem; color: var(--ink-soft); margin-bottom: 36px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge-dot { width: 7px; height: 7px; border-radius: 50%; background: #5dc96b; }
+    h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 24px;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    h1 em { font-style: italic; color: var(--violet); }
+    .hero-sub {
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+      color: var(--ink-soft);
+      max-width: 520px;
+      margin: 0 auto 48px;
+      font-weight: 300;
+      line-height: 1.7;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+    .hero-ctas {
+      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+    .btn-primary {
+      background: var(--ink); color: var(--cream);
+      padding: 14px 28px; border-radius: 100px;
+      font-size: 0.95rem; font-weight: 500; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      box-shadow: 0 8px 30px rgba(14,12,24,0.15);
+      transition: transform 0.2s, box-shadow 0.2s; border: none; cursor: pointer;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(14,12,24,0.22); }
+    .btn-secondary {
+      background: transparent; color: var(--ink);
+      padding: 14px 28px; border-radius: 100px;
+      font-size: 0.95rem; font-weight: 400; text-decoration: none;
+      border: 1px solid rgba(14,12,24,0.15);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-secondary:hover { background: white; border-color: rgba(14,12,24,0.25); }
+
+    /* HERO MOCKUP */
+    .hero-mockup {
+      position: relative; z-index: 1;
+      margin-top: 72px;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+    .mockup-window {
+      background: var(--ink);
+      border-radius: 20px;
+      padding: 28px 32px;
+      width: 320px;
+      margin: 0 auto;
+      box-shadow: 0 40px 100px rgba(14,12,24,0.25), 0 0 0 1px rgba(255,255,255,0.06);
+      color: white;
+      text-align: left;
+    }
+    .mockup-dots { display: flex; gap: 6px; margin-bottom: 24px; }
+    .mockup-dots span { width: 10px; height: 10px; border-radius: 50%; }
+    .mockup-dots span:nth-child(1) { background: #ff5f57; }
+    .mockup-dots span:nth-child(2) { background: #ffbd2e; }
+    .mockup-dots span:nth-child(3) { background: #28c940; }
+    .mockup-label { font-size: 0.72rem; color: rgba(255,255,255,0.45); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+    .mockup-time { font-family: 'Instrument Serif', serif; font-size: 3.2rem; color: white; line-height: 1; margin-bottom: 4px; }
+    .mockup-sub-label { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+    .mockup-bar-track { background: rgba(255,255,255,0.08); border-radius: 100px; height: 4px; overflow: hidden; margin-bottom: 20px; }
+    .mockup-bar-fill { height: 100%; width: 65%; background: linear-gradient(90deg, var(--lilac), var(--mint)); border-radius: 100px; animation: barPulse 3s ease-in-out infinite; }
+    .mockup-actions { display: flex; gap: 8px; }
+    .mockup-chip {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+      padding: 6px 12px; border-radius: 100px; font-size: 0.75rem; color: rgba(255,255,255,0.7);
+    }
+    .mockup-chip.active { background: var(--violet); border-color: var(--violet); color: white; }
+
+    /* SECTIONS */
+    section { padding: 100px 24px; }
+    .container { max-width: 1060px; margin: 0 auto; }
+    .section-tag {
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--violet); margin-bottom: 16px;
+    }
+    h2 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+    h2 em { font-style: italic; color: var(--violet); }
+    .section-desc {
+      font-size: 1.05rem; color: var(--ink-soft); font-weight: 300;
+      max-width: 560px; line-height: 1.7;
+    }
+
+    /* PROBLEM */
+    .problem { background: var(--ink); color: white; }
+    .problem .section-tag { color: var(--lilac); }
+    .problem h2 { color: white; }
+    .problem .section-desc { color: rgba(255,255,255,0.55); }
+    .problem-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2px; margin-top: 64px;
+      border-radius: 20px; overflow: hidden;
+    }
+    .problem-card {
+      background: rgba(255,255,255,0.04);
+      padding: 36px 28px;
+      transition: background 0.2s;
+    }
+    .problem-card:hover { background: rgba(255,255,255,0.07); }
+    .problem-icon { font-size: 2rem; margin-bottom: 16px; }
+    .problem-card h3 { font-size: 1rem; font-weight: 500; color: white; margin-bottom: 8px; }
+    .problem-card p { font-size: 0.875rem; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+    /* RULE */
+    .rule { background: white; }
+    .rule-steps {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; margin-top: 64px;
+      border-radius: 24px; overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .rule-step {
+      padding: 48px 36px; text-align: center;
+      background: white; position: relative;
+      border-right: 1px solid var(--border);
+    }
+    .rule-step:last-child { border-right: none; }
+    .rule-number {
+      font-family: 'Instrument Serif', serif;
+      font-size: 5rem; line-height: 1;
+      color: var(--lilac); margin-bottom: 20px;
+      display: block;
+    }
+    .rule-step h3 { font-size: 1.1rem; font-weight: 500; margin-bottom: 10px; }
+    .rule-step p { font-size: 0.875rem; color: var(--ink-soft); line-height: 1.6; }
+    .rule-step-connector {
+      position: absolute; right: -16px; top: 50%;
+      transform: translateY(-50%);
+      z-index: 2; background: white;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; color: var(--ink-muted);
+    }
+
+    /* FEATURES */
+    .features { background: var(--cream); }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px; margin-top: 64px;
+    }
+    .feature-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 20px; padding: 32px 28px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(14,12,24,0.07); }
+    .feature-card.highlight {
+      background: var(--ink); border-color: var(--ink);
+      grid-column: span 2;
+    }
+    .feature-icon { font-size: 1.5rem; margin-bottom: 16px; }
+    .feature-card h3 { font-size: 1rem; font-weight: 500; margin-bottom: 8px; }
+    .feature-card p { font-size: 0.875rem; color: var(--ink-soft); line-height: 1.6; }
+    .feature-card.highlight h3 { color: white; }
+    .feature-card.highlight p { color: rgba(255,255,255,0.5); }
+    .feature-card.highlight .feature-icon { filter: brightness(2); }
+    .badge-diff {
+      display: inline-block; background: rgba(196,184,240,0.2);
+      border: 1px solid var(--lilac); color: var(--violet);
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.05em;
+      padding: 3px 10px; border-radius: 100px; margin-bottom: 14px;
+    }
+    .feature-card.highlight .badge-diff { background: rgba(196,184,240,0.15); color: var(--lilac); border-color: rgba(196,184,240,0.3); }
+
+    /* FEEL */
+    .feel { background: white; }
+    .feel-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .feel-words { margin-top: 36px; display: flex; flex-direction: column; gap: 16px; }
+    .feel-word {
+      display: flex; align-items: center; gap: 14px;
+      padding: 18px 22px; border-radius: 14px;
+      border: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .feel-word:hover { background: var(--cream); }
+    .feel-word-emoji { font-size: 1.4rem; }
+    .feel-word-text h4 { font-size: 0.95rem; font-weight: 500; margin-bottom: 2px; }
+    .feel-word-text p { font-size: 0.82rem; color: var(--ink-muted); }
+    .feel-visual {
+      background: var(--cream); border-radius: 24px; padding: 48px 36px;
+      text-align: center; border: 1px solid var(--border);
+    }
+    .feel-visual-quote {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.8rem; line-height: 1.3;
+      color: var(--ink); margin-bottom: 24px;
+    }
+    .feel-visual-quote em { font-style: italic; color: var(--violet); }
+    .feel-for { font-size: 0.8rem; color: var(--ink-muted); font-weight: 300; }
+    .feel-for strong { color: var(--ink-soft); font-weight: 500; }
+
+    /* DEMO TIMER */
+    .demo { background: var(--ink); color: white; text-align: center; }
+    .demo .section-tag { color: var(--lilac); }
+    .demo h2 { color: white; }
+    .demo .section-desc { color: rgba(255,255,255,0.5); margin: 0 auto 64px; }
+    .timer-widget {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px; padding: 52px 48px;
+      max-width: 420px; margin: 0 auto;
+    }
+    .timer-phase {
+      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); margin-bottom: 12px;
+    }
+    .timer-display {
+      font-family: 'Instrument Serif', serif;
+      font-size: 6rem; line-height: 1; color: white;
+      margin-bottom: 8px;
+    }
+    .timer-msg {
+      font-size: 0.9rem; color: rgba(255,255,255,0.5);
+      margin-bottom: 36px;
+    }
+    .timer-ring-container {
+      width: 160px; height: 160px; margin: 0 auto 36px;
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .timer-ring { transform: rotate(-90deg); }
+    .timer-ring-track { fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 4; }
+    .timer-ring-fill {
+      fill: none; stroke: url(#ringGrad); stroke-width: 4;
+      stroke-linecap: round;
+      stroke-dasharray: 440; stroke-dashoffset: 0;
+      transition: stroke-dashoffset 1s linear;
+    }
+    .timer-ring-inner {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .timer-ring-time {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2rem; color: white; line-height: 1;
+    }
+    .timer-ring-label { font-size: 0.65rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; }
+    .timer-btns { display: flex; gap: 10px; justify-content: center; }
+    .timer-btn {
+      padding: 11px 24px; border-radius: 100px;
+      font-size: 0.85rem; font-weight: 500;
+      cursor: pointer; border: none; transition: all 0.2s;
+    }
+    .timer-btn.primary { background: white; color: var(--ink); }
+    .timer-btn.primary:hover { background: var(--lilac); }
+    .timer-btn.ghost {
+      background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .timer-btn.ghost:hover { background: rgba(255,255,255,0.12); }
+
+    /* PRIVACY */
+    .privacy { background: var(--cream); }
+    .privacy-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+      margin-top: 20px;
+    }
+    .privacy-points { display: flex; flex-direction: column; gap: 12px; }
+    .privacy-point {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 20px 22px; background: white;
+      border: 1px solid var(--border); border-radius: 14px;
+    }
+    .privacy-check {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(93,201,107,0.12); border: 1px solid rgba(93,201,107,0.3);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 0.65rem; color: #4ca85a; margin-top: 1px;
+    }
+    .privacy-point h4 { font-size: 0.9rem; font-weight: 500; margin-bottom: 3px; }
+    .privacy-point p { font-size: 0.8rem; color: var(--ink-muted); }
+    .privacy-seal {
+      background: var(--ink); border-radius: 24px; padding: 52px 40px;
+      text-align: center; color: white;
+    }
+    .privacy-seal-icon { font-size: 3.5rem; margin-bottom: 20px; }
+    .privacy-seal h3 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.8rem; color: white; margin-bottom: 12px;
+    }
+    .privacy-seal p { font-size: 0.875rem; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+    /* TESTIMONIALS */
+    .testimonials { background: white; }
+    .testi-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 64px;
+    }
+    .testi-card {
+      background: var(--cream); border-radius: 20px; padding: 32px 28px;
+      border: 1px solid var(--border);
+    }
+    .testi-stars { color: #f5a623; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 16px; }
+    .testi-text { font-size: 0.92rem; color: var(--ink-soft); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: 10px; }
+    .testi-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--violet); display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; color: white; font-weight: 500;
+    }
+    .testi-name { font-size: 0.85rem; font-weight: 500; }
+    .testi-role { font-size: 0.75rem; color: var(--ink-muted); }
+
+    /* FINAL CTA */
+    .final-cta {
+      background:
+        radial-gradient(ellipse 60% 80% at 50% 100%, rgba(196,184,240,0.4) 0%, transparent 70%),
+        var(--ink);
+      color: white; text-align: center; padding: 140px 24px;
+    }
+    .final-cta h2 { color: white; max-width: 560px; margin: 0 auto 20px; }
+    .final-cta .section-desc { color: rgba(255,255,255,0.5); margin: 0 auto 48px; }
+    .final-cta .btn-primary { background: white; color: var(--ink); }
+    .final-cta .btn-primary:hover { background: var(--lilac); }
+
+    /* FAQ */
+    .faq { background: var(--cream); }
+    .faq-list { margin-top: 64px; display: flex; flex-direction: column; gap: 2px; border-radius: 20px; overflow: hidden; }
+    .faq-item {
+      background: white; border: none; border-bottom: 1px solid var(--border);
+      padding: 0;
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q {
+      width: 100%; text-align: left; padding: 24px 28px;
+      background: none; border: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500;
+      color: var(--ink); display: flex; justify-content: space-between; align-items: center;
+    }
+    .faq-q:hover { background: var(--cream); }
+    .faq-toggle { color: var(--violet); font-size: 1.2rem; transition: transform 0.2s; }
+    .faq-item.open .faq-toggle { transform: rotate(45deg); }
+    .faq-a { padding: 0 28px 24px; font-size: 0.875rem; color: var(--ink-soft); line-height: 1.7; display: none; }
+    .faq-item.open .faq-a { display: block; }
+
+    /* FOOTER */
+    footer {
+      background: var(--ink); color: rgba(255,255,255,0.4);
+      text-align: center; padding: 40px 24px;
+      font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer a:hover { color: white; }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes barPulse {
+      0%, 100% { width: 65%; }
+      50% { width: 72%; }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .rule-steps { grid-template-columns: 1fr; }
+      .rule-step { border-right: none; border-bottom: 1px solid var(--border); }
+      .rule-step:last-child { border-bottom: none; }
+      .feel-inner, .privacy-inner { grid-template-columns: 1fr; gap: 40px; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .feature-card.highlight { grid-column: span 1; }
+      .rule-step-connector { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Blink <span>&</span> Break</div>
+    <div class="nav-links">
+      <a href="#problem">Why it matters</a>
+      <a href="#features">Features</a>
+      <a href="#demo">Try Demo</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a href="#" class="btn-nav">Add to Chrome — Free</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Free Chrome Extension · No account needed
+      </div>
+      <h1>Give your eyes the<br><em>rest they deserve.</em></h1>
+      <p class="hero-sub">A gentle, privacy-first extension that reminds you to follow the 20-20-20 rule — so you can focus longer without the strain.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Add to Chrome — It's Free
+        </a>
+        <a href="#demo" class="btn-secondary">See How It Works</a>
+      </div>
+    </div>
+    <div class="hero-mockup">
+      <div class="mockup-window">
+        <div class="mockup-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="mockup-label">Next break in</div>
+        <div class="mockup-time">18:34</div>
+        <div class="mockup-sub-label">Work session · 20 min intervals</div>
+        <div class="mockup-bar-track">
+          <div class="mockup-bar-fill"></div>
+        </div>
+        <div class="mockup-actions">
+          <div class="mockup-chip active">⏸ Pause</div>
+          <div class="mockup-chip">💤 Snooze</div>
+          <div class="mockup-chip">⏭ Skip</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="problem" id="problem">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-tag">The Problem</span>
+        <h2>Your eyes work harder<br>than you think.</h2>
+        <p class="section-desc">On screens, people blink up to 66% less than normal. After hours of focus, the strain quietly adds up.</p>
+      </div>
+      <div class="problem-grid reveal">
+        <div class="problem-card">
+          <div class="problem-icon">👁️</div>
+          <h3>Reduced Blinking</h3>
+          <p>Screen focus drops your blink rate dramatically, leaving eyes dry and irritated.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">🔵</div>
+          <h3>Blue Light Exposure</h3>
+          <p>Prolonged blue light exposure contributes to eye fatigue and disrupted sleep cycles.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">🎯</div>
+          <h3>Sustained Focus</h3>
+          <p>Your eye muscles lock into a single focal length for hours, causing cumulative strain.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">🧠</div>
+          <h3>Mental Fatigue</h3>
+          <p>Eye strain translates directly to headaches, brain fog, and reduced productivity.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 20-20-20 RULE -->
+  <section class="rule" id="rule">
+    <div class="container">
+      <div class="reveal" style="text-align:center; max-width: 600px; margin: 0 auto;">
+        <span class="section-tag">The Solution</span>
+        <h2>The 20-20-20 <em>Rule</em></h2>
+        <p class="section-desc">Recommended by ophthalmologists worldwide. Simple, effective, and backed by science.</p>
+      </div>
+      <div class="rule-steps reveal">
+        <div class="rule-step">
+          <span class="rule-number">20</span>
+          <h3>Every 20 minutes</h3>
+          <p>Take a short break from your screen during focused work sessions.</p>
+          <div class="rule-step-connector">→</div>
+        </div>
+        <div class="rule-step">
+          <span class="rule-number">20</span>
+          <h3>Look 20 feet away</h3>
+          <p>Shift your gaze to a distant object — a wall, a tree, or out the window.</p>
+          <div class="rule-step-connector">→</div>
+        </div>
+        <div class="rule-step">
+          <span class="rule-number">20</span>
+          <h3>For 20 seconds</h3>
+          <p>Allow your eye muscles to fully relax and reset from the sustained close focus.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-tag">Features</span>
+        <h2>Designed to stay<br>out of your way.</h2>
+        <p class="section-desc">Every detail is built to feel gentle, not disruptive.</p>
+      </div>
+      <div class="features-grid reveal">
+        <div class="feature-card highlight">
+          <div class="badge-diff">✦ Key Differentiator</div>
+          <div class="feature-icon">⏯️</div>
+          <h3>True Pause & Resume</h3>
+          <p>Step away for a call? Pause the timer. When you resume, it picks up exactly where you left off — no lost progress, no reset frustration.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔔</div>
+          <h3>Gentle Notifications</h3>
+          <p>Soft, calm reminders that respect your focus — not jarring alarms that break your flow.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚙️</div>
+          <h3>Fully Customizable</h3>
+          <p>Adjust both work intervals and break durations to match your unique workflow.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💤</div>
+          <h3>Snooze & Skip</h3>
+          <p>In the middle of something important? Snooze for 5 minutes or skip a break entirely.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌙</div>
+          <h3>Light & Dark Mode</h3>
+          <p>Automatically adapts to your system theme for a seamless visual experience.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔇</div>
+          <h3>Runs in Background</h3>
+          <p>Quietly tracks your session without consuming resources or demanding attention.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>One-Click Disable</h3>
+          <p>Need to pause everything? Disable with a single click and re-enable just as easily.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT FEELS -->
+  <section class="feel" id="feel">
+    <div class="container">
+      <div class="feel-inner">
+        <div class="reveal">
+          <span class="section-tag">Experience</span>
+          <h2>Focus without<br><em>burnout.</em></h2>
+          <p class="section-desc">Built for people who care about doing deep work sustainably.</p>
+          <div class="feel-words">
+            <div class="feel-word">
+              <span class="feel-word-emoji">🌿</span>
+              <div class="feel-word-text">
+                <h4>Calm</h4>
+                <p>No stress, no guilt. Just a quiet nudge at the right time.</p>
+              </div>
+            </div>
+            <div class="feel-word">
+              <span class="feel-word-emoji">🤝</span>
+              <div class="feel-word-text">
+                <h4>Supportive</h4>
+                <p>Your eyes' quiet advocate in the background of your day.</p>
+              </div>
+            </div>
+            <div class="feel-word">
+              <span class="feel-word-emoji">🎓</span>
+              <div class="feel-word-text">
+                <h4>Built for students & devs</h4>
+                <p>Long sessions are the norm. Blink & Break keeps up.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="feel-visual reveal">
+          <p class="feel-visual-quote">"The best tool<br>is one you<br><em>forget is there</em> —<br>until you need it."</p>
+          <p class="feel-for">Designed for <strong>developers, students,</strong> and <strong>remote workers</strong> spending 6+ hours a day at screens.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMO TIMER -->
+  <section class="demo" id="demo">
+    <div class="container" style="text-align: center;">
+      <div class="reveal">
+        <span class="section-tag">Live Demo</span>
+        <h2>Try the 20-second<br><em style="color:var(--lilac)">eye break</em> right now.</h2>
+        <p class="section-desc">Start the timer. Look 20 feet away. Feel the difference.</p>
+      </div>
+      <div class="timer-widget reveal">
+        <svg width="0" height="0">
+          <defs>
+            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#c4b8f0" />
+              <stop offset="100%" style="stop-color:#a8d8c8" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="timer-phase" id="timerPhase">Ready to start</div>
+        <div class="timer-ring-container">
+          <svg class="timer-ring" width="160" height="160" viewBox="0 0 160 160">
+            <circle class="timer-ring-track" cx="80" cy="80" r="70" />
+            <circle class="timer-ring-fill" id="timerRingFill" cx="80" cy="80" r="70" />
+          </svg>
+          <div class="timer-ring-inner">
+            <div class="timer-ring-time" id="timerDisplay">0:20</div>
+            <div class="timer-ring-label" id="timerLabel">seconds</div>
+          </div>
+        </div>
+        <div class="timer-msg" id="timerMsg">Press Start to begin your 20-second eye break</div>
+        <div class="timer-btns">
+          <button class="timer-btn primary" id="timerStartBtn" onclick="startTimer()">Start Break</button>
+          <button class="timer-btn ghost" id="timerResetBtn" onclick="resetTimer()" style="display:none">Reset</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section class="privacy" id="privacy">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-tag">Privacy</span>
+        <h2>Nothing leaves<br>your browser.</h2>
+        <p class="section-desc">We built this for your eyes, not your data. There's nothing to collect and nowhere to send it.</p>
+      </div>
+      <div class="privacy-inner reveal">
+        <div class="privacy-points">
+          <div class="privacy-point">
+            <div class="privacy-check">✓</div>
+            <div>
+              <h4>No data collection</h4>
+              <p>Your usage habits, patterns, and settings stay entirely on your device.</p>
+            </div>
+          </div>
+          <div class="privacy-point">
+            <div class="privacy-check">✓</div>
+            <div>
+              <h4>No tracking or analytics</h4>
+              <p>No third-party analytics. No heatmaps. No behavioral data of any kind.</p>
+            </div>
+          </div>
+          <div class="privacy-point">
+            <div class="privacy-check">✓</div>
+            <div>
+              <h4>No ads, ever</h4>
+              <p>The extension is free because it's simple — not because you're the product.</p>
+            </div>
+          </div>
+          <div class="privacy-point">
+            <div class="privacy-check">✓</div>
+            <div>
+              <h4>Minimal permissions</h4>
+              <p>Only the permissions required to show notifications. Nothing more.</p>
+            </div>
+          </div>
+          <div class="privacy-point">
+            <div class="privacy-check">✓</div>
+            <div>
+              <h4>Open approach</h4>
+              <p>Simple, reviewable code with nothing hidden or obfuscated.</p>
+            </div>
+          </div>
+        </div>
+        <div class="privacy-seal">
+          <div class="privacy-seal-icon">🛡️</div>
+          <h3>Privacy First,<br>Always.</h3>
+          <p>Blink & Break was built with a simple belief: a tool that protects your health should never compromise your privacy. There are no accounts, no sign-ups, and no servers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="reveal" style="text-align: center; max-width: 500px; margin: 0 auto;">
+        <span class="section-tag">What people say</span>
+        <h2>Quietly making<br>a difference.</h2>
+      </div>
+      <div class="testi-grid reveal">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"I used to get headaches every afternoon. Two weeks in, they've basically stopped. I didn't realize how much the breaks were helping until I forgot to turn it on one day."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background: #7c5cbf;">AR</div>
+            <div>
+              <div class="testi-name">Aisha R.</div>
+              <div class="testi-role">Computer Science student</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"The true pause feature is what sold me. Every other app I tried would reset my timer if I stepped away. This one just... waits. Exactly what I needed."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background: #4a7cbf;">DL</div>
+            <div>
+              <div class="testi-name">Daniel L.</div>
+              <div class="testi-role">Senior software engineer</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"I've been working from home for 3 years and my eye strain was getting worse every month. Blink & Break is so unobtrusive I forget it's there — which is honestly the best thing about it."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background: #4abf8a;">MK</div>
+            <div>
+              <div class="testi-name">Maya K.</div>
+              <div class="testi-role">Remote UX designer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-tag" style="color: var(--lilac);">Get started</span>
+        <h2>Your eyes deserve<br><em>better care.</em></h2>
+        <p class="section-desc">Free, private, and takes 20 seconds to install. Your future self will thank you.</p>
+        <a href="#" class="btn-primary" style="font-size:1rem; padding: 16px 36px;">
+          Add to Chrome — It's Free
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container" style="max-width: 720px;">
+      <div class="reveal">
+        <span class="section-tag">FAQ</span>
+        <h2>Questions, <em>answered.</em></h2>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Does it track my browsing or collect any data?
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-a">Absolutely not. Blink & Break has no servers, no analytics, and no data collection of any kind. Everything runs locally in your browser. We don't even know you're using it.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Is it really free? What's the catch?
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-a">Yes, completely free. No premium tier, no subscription, no ads. It's a simple tool built to solve a real problem. There's no catch.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Does it work offline?
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-a">Yes. Since everything runs locally in your browser, Blink & Break works perfectly without any internet connection.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Can I customize the reminder intervals?
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-a">Yes. You can set any work interval duration and any break duration you prefer. The defaults follow the 20-20-20 rule, but you're in full control.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Does pausing reset the timer?
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-a">No — and this is one of our most important features. When you pause, the timer freezes exactly where it was. When you resume, it continues from that point. No reset, no frustration.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            What if I'm in the middle of something when the break triggers?
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-a">You can snooze the reminder for a few minutes, skip it entirely, or simply dismiss it. The extension is designed to give you options, not demands.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Blink & Break · <a href="#">Privacy Policy</a> · <a href="#">Chrome Web Store</a> · Built with ♥ for your eyes</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(r => obs.observe(r));
+
+    // FAQ
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // Demo Timer
+    let timerInterval = null;
+    let remaining = 20;
+    const totalTime = 20;
+    const circumference = 2 * Math.PI * 70; // r=70
+
+    function updateRing(secs) {
+      const fill = document.getElementById('timerRingFill');
+      const progress = secs / totalTime;
+      fill.style.strokeDashoffset = circumference * (1 - progress);
+    }
+
+    function startTimer() {
+      if (timerInterval) return;
+      const btn = document.getElementById('timerStartBtn');
+      const phase = document.getElementById('timerPhase');
+      const msg = document.getElementById('timerMsg');
+      const resetBtn = document.getElementById('timerResetBtn');
+
+      btn.textContent = 'Running…';
+      btn.disabled = true;
+      phase.textContent = '👀 Look 20 feet away';
+      msg.textContent = 'Focus on something in the distance. Let your eye muscles relax.';
+      resetBtn.style.display = 'inline-block';
+
+      document.getElementById('timerRingFill').style.strokeDashoffset = circumference;
+
+      timerInterval = setInterval(() => {
+        remaining--;
+        const m = Math.floor(remaining / 60);
+        const s = remaining % 60;
+        document.getElementById('timerDisplay').textContent = `${m}:${s.toString().padStart(2,'0')}`;
+        updateRing((totalTime - remaining) / totalTime * totalTime);
+
+        const ring = document.getElementById('timerRingFill');
+        const offset = circumference * (remaining / totalTime);
+        ring.style.strokeDashoffset = offset;
+
+        if (remaining <= 0) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          phase.textContent = '✅ Break complete!';
+          msg.textContent = "Your eyes have relaxed. Back to work — you've earned it.";
+          btn.textContent = 'Start Again';
+          btn.disabled = false;
+          btn.onclick = () => { remaining = totalTime; document.getElementById('timerDisplay').textContent = '0:20'; ring.style.strokeDashoffset = circumference; startTimer(); };
+        }
+      }, 1000);
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      remaining = totalTime;
+      document.getElementById('timerDisplay').textContent = '0:20';
+      document.getElementById('timerPhase').textContent = 'Ready to start';
+      document.getElementById('timerMsg').textContent = 'Press Start to begin your 20-second eye break';
+      document.getElementById('timerRingFill').style.strokeDashoffset = circumference;
+      const btn = document.getElementById('timerStartBtn');
+      btn.textContent = 'Start Break';
+      btn.disabled = false;
+      btn.onclick = startTimer;
+      document.getElementById('timerResetBtn').style.display = 'none';
+    }
+
+    // Init ring
+    document.getElementById('timerRingFill').style.strokeDasharray = circumference;
+    document.getElementById('timerRingFill').style.strokeDashoffset = circumference;
+  </script>
+</body>
+</html>
