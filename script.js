@@ -3,6 +3,7 @@
 
   const byId = (id) => document.getElementById(id);
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let completeReturnTimer = null;
 
   let heroRemaining = 18 * 60 + 34;
   const heroTotal = 20 * 60;
@@ -111,7 +112,7 @@
     byId("demo-total").textContent = String(state.total);
     byId("demo-wellness").textContent = String(state.wellness);
     byId("demo-level").textContent = String(state.level);
-    byId("demo-xp-label").textContent = `${state.xp} / ${needed} XP`;
+    byId("demo-xp-label").textContent = `${state.xp}/${needed} XP`;
     byId("demo-xp").style.width = `${Math.min(100, (state.xp / needed) * 100)}%`;
   };
 
@@ -125,17 +126,22 @@
   };
 
   const startBreak = () => {
+    if (completeReturnTimer) window.clearTimeout(completeReturnTimer);
     hideNotification();
     state.breakRemainingSec = state.durationSec;
     byId("break-count").textContent = String(state.breakRemainingSec);
     byId("break-message").textContent = state.blink
-      ? "Look 20 feet away and blink fully."
-      : "Look at something 20 feet away.";
+      ? "Look 20 feet away and blink fully"
+      : "Look at something 20 feet away";
     setMode("break");
     announce(`Break started for ${state.durationSec} seconds.`);
   };
 
   const returnToTimer = (message = "Back to the main timer.") => {
+    if (completeReturnTimer) {
+      window.clearTimeout(completeReturnTimer);
+      completeReturnTimer = null;
+    }
     state.remainingSec = state.intervalMin * 60;
     state.paused = false;
     state.snoozed = false;
@@ -173,10 +179,14 @@
     }
     updateStats();
     byId("xp-reward").textContent = leveledUp ? `Level ${state.level} — Eye Buddy evolved!` : `+${gain} XP earned`;
-    byId("complete-copy").textContent = "Your next break is ready when you are.";
+    byId("complete-copy").textContent = leveledUp ? `Level ${state.level}! Your eye buddy evolved!` : `+${gain} XP! Eyes refreshed! ✨`;
     byId("demo-buddy-message").textContent = leveledUp ? "A new level! We did it." : "Thanks for taking care of me!";
+    byId("demo-buddy-mouth").textContent = "◠";
     setMode("complete");
     announce(`Break complete. Eye Buddy earned ${gain} XP.`);
+    completeReturnTimer = window.setTimeout(() => {
+      returnToTimer("Break complete. The next full interval has started.");
+    }, reduceMotion ? 500 : 3000);
   };
 
   const syncSettingsForm = () => {
