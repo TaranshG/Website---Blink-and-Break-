@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blink &amp; Break — 20-20-20 Eye Break Reminder for Chrome</title>
+  <meta name="description" content="Blink & Break is a free Chrome extension that gently reminds you to follow the 20-20-20 rule with customizable screen-break timers, snooze, true pause, and Eye Buddy.">
+  <meta name="keywords" content="20-20-20 rule, eye strain reminder, screen break reminder, Chrome extension, digital eye strain">
+  <meta name="theme-color" content="#f4f0e8">
+  <meta property="og:title" content="Give your eyes a break. Without breaking your focus.">
+  <meta property="og:description" content="A gentle, free 20-20-20 reminder for Chrome. No account, no ads, minimal permissions.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blink & Break — A gentler screen-break reminder">
+  <meta name="twitter:description" content="Follow the 20-20-20 habit without losing your flow.">
+  <meta name="twitter:image" content="/og.png">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23775bb5'/%3E%3Cpath d='M10 32s8-13 22-13 22 13 22 13-8 13-22 13S10 32 10 32Z' fill='none' stroke='white' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='6' fill='white'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <svg class="svg-defs" aria-hidden="true"><defs>
+    <symbol id="icon-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12Z"></path><circle cx="12" cy="12" r="3"></circle></symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5v.2a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1A2 2 0 1 1 4.4 17l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3 1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1A2 2 0 1 1 19.6 7l-.1.1a1.7 1.7 0 0 0-.3 1.8 1.7 1.7 0 0 0 1.5 1h.3a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"></path></symbol>
+    <symbol id="icon-reset" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.5 15a9 9 0 1 0 .5-5"></path></symbol>
+    <symbol id="icon-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"></path></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></symbol>
+  </defs></svg>
+
+  <header class="site-header" id="top"><nav class="nav-shell" aria-label="Main navigation">
+    <a class="brand" href="#top" aria-label="Blink and Break home"><svg aria-hidden="true"><use href="#icon-eye"></use></svg><span>Blink <em>&amp;</em> Break</span></a>
+    <div class="nav-links"><a href="#how-it-works">How it works</a><a href="#try">Try it</a><a href="#privacy">Privacy</a></div>
+    <a class="button button-small" href="https://chromewebstore.google.com/detail/blink-break-eye-care/bpfpaalmndaecjcjmhiphfdgcfajiapf?hl=en" target="_blank" rel="noopener noreferrer">Add to Chrome <span aria-hidden="true">↗</span></a>
+  </nav></header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">A gentler 20-20-20 reminder</p>
+        <h1 id="hero-title">Give your eyes a break.<br><em>Without breaking your focus.</em></h1>
+        <p class="hero-lede">Blink &amp; Break reminds you to look away from the screen every 20 minutes—then gets out of your way.</p>
+        <div class="hero-actions"><a class="button" href="https://chromewebstore.google.com/detail/blink-break-eye-care/bpfpaalmndaecjcjmhiphfdgcfajiapf?hl=en" target="_blank" rel="noopener noreferrer">Add to Chrome — Free <svg aria-hidden="true"><use href="#icon-arrow"></use></svg></a><a class="text-link" href="#try">Try it below <span aria-hidden="true">↓</span></a></div>
+        <p class="trust-line" aria-label="Free. No account. No ads. Minimal permissions."><span>Free</span><span>No account</span><span>No ads</span><span>Minimal permissions</span></p>
+      </div>
+      <div class="hero-product" aria-label="Preview of the Blink and Break Chrome extension">
+        <div class="hero-note note-top">Quietly counts down.<br>No tab left open.</div>
+        <div class="browser-shell">
+          <div class="browser-toolbar" aria-hidden="true"><div class="traffic-lights"><i></i><i></i><i></i></div><div class="address-bar">chrome-extension://blink-break</div><div class="toolbar-eye"><svg><use href="#icon-eye"></use></svg></div></div>
+          <div class="popup hero-popup">
+            <div class="popup-header"><div class="popup-brand"><svg><use href="#icon-eye"></use></svg><strong>Blink &amp; Break</strong></div><span class="icon-button"><svg><use href="#icon-settings"></use></svg></span></div>
+            <div class="timer-panel"><div class="timer-label-row"><span>Next break in</span><div class="timer-actions" aria-hidden="true"><span><svg><use href="#icon-reset"></use></svg></span><span><svg><use href="#icon-pause"></use></svg></span></div></div><div class="timer-number" id="hero-timer">18:34</div><div class="progress-track"><span id="hero-progress" style="width:7%"></span></div><p class="timer-status status-active">Active</p></div>
+            <div class="buddy-panel compact-buddy"><div class="buddy-message">I’ll watch the clock. You keep going.</div><div class="buddy" aria-label="Eye Buddy, a round blue character"><span class="buddy-eye left"></span><span class="buddy-eye right"></span><span class="buddy-mouth">⌣</span></div><strong>Eye Buddy</strong><div class="level-row"><span>Level 3</span><span>145 / 300 XP</span></div><div class="xp-track"><span style="width:48%"></span></div></div>
+            <div class="mini-stats" aria-label="Break statistics preview"><div><strong>3</strong><span>Today</span></div><div><strong>42</strong><span>Total</span></div><div><strong>98</strong><span>Wellness</span></div></div>
+          </div>
+        </div>
+        <div class="hero-note note-bottom">A small buddy makes<br>the habit easier to keep.</div>
+      </div>
+    </section>
+
+    <section class="rule-section" id="how-it-works" aria-labelledby="rule-title">
+      <div class="section-kicker"><span>01</span><span>The habit</span></div>
+      <div class="rule-intro"><h2 id="rule-title">One simple rhythm for long screen days.</h2><p>Looking at screens for long stretches can contribute to digital eye strain. The 20-20-20 rule is a common reminder to regularly shift your focus to something farther away.</p></div>
+      <div class="rule-line" aria-label="Every 20 minutes, look 20 feet away for 20 seconds"><div><strong>20</strong><span>minutes of screen time</span></div><span class="rule-arrow" aria-hidden="true">→</span><div><strong>20</strong><span>feet away</span></div><span class="rule-arrow" aria-hidden="true">→</span><div><strong>20</strong><span>seconds to refocus</span></div></div>
+      <p class="source-note">Blink &amp; Break is a reminder and habit tool, not a medical treatment.</p>
+    </section>
+
+    <section class="demo-section" id="try" aria-labelledby="demo-title">
+      <div class="demo-heading"><div class="section-kicker light"><span>02</span><span>Try the extension</span></div><h2 id="demo-title">Don’t take our word for it.<br><em>Take a break.</em></h2><p>This is the Blink &amp; Break experience. Try it.</p></div>
+      <div class="demo-stage">
+        <aside class="annotation annotation-left" aria-hidden="true"><span>Pause without resetting</span><span>Start with a real reminder</span></aside>
+        <div class="demo-browser">
+          <div class="browser-toolbar demo-toolbar" aria-hidden="true"><div class="traffic-lights"><i></i><i></i><i></i></div><div class="address-bar">Blink &amp; Break — live demo</div><div class="toolbar-eye"><svg><use href="#icon-eye"></use></svg></div></div>
+          <div class="demo-control-bar" aria-label="Demo shortcuts"><button type="button" id="show-reminder">Show reminder</button><button type="button" id="start-break-shortcut">Start a break</button><span>Demo state stays here while you explore.</span></div>
+          <div class="notification" id="demo-notification" role="status" aria-live="polite" hidden>
+            <div class="notification-top"><div class="notification-icon"><svg><use href="#icon-eye"></use></svg></div><div><strong>Time for an eye break</strong><span>Blink &amp; Break</span></div><button type="button" id="close-notification" aria-label="Dismiss notification"><svg><use href="#icon-close"></use></svg></button></div><p>Press “Start break” to begin your 20-second break.</p><div class="notification-actions"><button type="button" id="notification-start">Start break</button><button type="button" id="notification-snooze">Snooze</button></div>
+          </div>
+          <div class="popup demo-popup" id="demo-popup">
+            <div class="demo-view" id="demo-main-view">
+              <div class="popup-header"><div class="popup-brand"><svg><use href="#icon-eye"></use></svg><strong>Blink &amp; Break</strong></div><button class="icon-button" id="open-settings" type="button" aria-label="Open settings"><svg><use href="#icon-settings"></use></svg></button></div>
+              <div class="timer-panel"><div class="timer-label-row"><span>Next break in</span><div class="timer-actions"><button class="icon-button small" id="reset-timer" type="button" aria-label="Reset timer"><svg><use href="#icon-reset"></use></svg></button><button class="icon-button small" id="toggle-timer" type="button" aria-label="Pause timer"><svg><use id="timer-toggle-icon" href="#icon-pause"></use></svg></button></div></div><div class="timer-number" id="demo-timer">20:00</div><div class="progress-track"><span id="demo-progress" style="width:0%"></span></div><p class="timer-status status-active" id="demo-status" aria-live="polite">Active</p></div>
+              <div class="buddy-panel"><div class="buddy-message" id="demo-buddy-message">Hi! I’m your eye buddy.</div><div class="buddy" aria-label="Eye Buddy, a round blue character"><span class="buddy-eye left"></span><span class="buddy-eye right"></span><span class="buddy-mouth" id="demo-buddy-mouth">⌣</span></div><strong>Eye Buddy</strong><div class="level-row"><span>Level <b id="demo-level">1</b></span><span id="demo-xp-label">0 / 100 XP</span></div><div class="xp-track"><span id="demo-xp" style="width:0%"></span></div></div>
+              <div class="mini-stats"><div><strong id="demo-today">0</strong><span>Today</span></div><div><strong id="demo-total">0</strong><span>Total</span></div><div><strong id="demo-wellness">100</strong><span>Wellness</span></div></div>
+              <div class="tips-strip"><svg aria-hidden="true"><use href="#icon-eye"></use></svg><div><strong>Quick tip</strong><span>Look at something about 20 feet away.</span></div></div>
+            </div>
+            <div class="demo-view settings-view" id="demo-settings-view" hidden>
+              <div class="popup-header"><h3>Settings</h3><button class="icon-button" id="close-settings" type="button" aria-label="Close settings"><svg><use href="#icon-close"></use></svg></button></div>
+              <form id="demo-settings-form">
+                <fieldset class="settings-group"><legend>Timing</legend><label><span>Reminder interval<small>1–1440 minutes</small></span><span class="number-input"><input id="setting-interval" type="number" min="1" max="1440" value="20"><b>min</b></span></label><label><span>Break duration<small>5–300 seconds</small></span><span class="number-input"><input id="setting-duration" type="number" min="5" max="300" value="20"><b>sec</b></span></label><label><span>Snooze duration<small>1–120 minutes</small></span><span class="number-input"><input id="setting-snooze" type="number" min="1" max="120" value="5"><b>min</b></span></label></fieldset>
+                <fieldset class="settings-group"><legend>Experience</legend><label class="switch-row"><span>Blink reminders<small>Include a blink prompt during breaks</small></span><input id="setting-blink" type="checkbox" checked role="switch"><i aria-hidden="true"></i></label><label class="switch-row"><span>Dark mode<small>Easier on the eyes in low light</small></span><input id="setting-dark" type="checkbox" checked role="switch"><i aria-hidden="true"></i></label><label class="switch-row"><span>Sound notifications<small>Play a sound when a break starts</small></span><input id="setting-sound" type="checkbox" checked role="switch"><i aria-hidden="true"></i></label></fieldset>
+                <fieldset class="sound-choice" id="sound-choice"><legend>Notification sound</legend><label><input type="radio" name="demo-sound" value="gentle-bell" checked><span>Gentle Bell</span></label><label><input type="radio" name="demo-sound" value="soft-chime"><span>Soft Chime</span></label><label><input type="radio" name="demo-sound" value="calm-tone"><span>Calm Tone</span></label><label><input type="radio" name="demo-sound" value="nature-bird"><span>Nature Sound</span></label></fieldset>
+                <button class="popup-primary" type="submit">Save settings</button>
+              </form>
+            </div>
+            <div class="demo-view break-view" id="demo-break-view" hidden><div class="break-eye"><svg><use href="#icon-eye"></use></svg></div><h3>Eye Break Time!</h3><p id="break-message">Look 20 feet away and blink fully.</p><strong class="break-count" id="break-count">20</strong><span class="seconds-label">seconds</span><div class="break-actions"><button type="button" id="snooze-break">Snooze</button><button type="button" id="skip-break">Not now</button><button type="button" class="turn-off" id="turn-off-breaks">Turn off breaks</button></div></div>
+            <div class="demo-view complete-view" id="demo-complete-view" hidden><div class="complete-check">✓</div><h3>All done!</h3><p id="complete-copy">Your next break is scheduled.</p><div class="xp-reward" id="xp-reward">+15 XP earned</div><button class="popup-primary" type="button" id="return-to-timer">Back to timer</button></div>
+          </div>
+        </div>
+        <aside class="annotation annotation-right" aria-hidden="true"><span>Snooze when you’re busy</span><span>Earn XP with Eye Buddy</span><span>Customize the schedule</span></aside>
+      </div>
+    </section>
+
+    <section class="stories" aria-labelledby="stories-title">
+      <div class="section-kicker"><span>03</span><span>Built around your flow</span></div><h2 id="stories-title" class="stories-title">A reminder should feel helpful.<br><em>Not bossy.</em></h2>
+      <article class="story flow-story"><div class="story-copy"><p class="story-index">A / Breaks that respect your flow</p><h3>Take the break—or make room for it.</h3><p>A Chrome notification offers a clear choice: start now or snooze. Inside the break view, you can snooze again, skip without penalty, or turn reminders off.</p><ul class="plain-list"><li>True pause keeps the remaining time</li><li>Reset starts a fresh interval</li><li>Snooze duration is yours to choose</li></ul></div><div class="notification-story" aria-label="Chrome break reminder preview"><div class="notification-top"><div class="notification-icon"><svg><use href="#icon-eye"></use></svg></div><div><strong>Quick break time!</strong><span>Blink &amp; Break</span></div><time>now</time></div><p>Press “Start break” to begin your 20-second break.</p><div class="notification-actions"><span>Start break</span><span>Snooze</span></div></div></article>
+      <article class="story buddy-story"><div class="buddy-feature" aria-label="Eye Buddy level and XP preview"><div class="buddy-message">We make a great team!</div><div class="buddy buddy-large"><span class="buddy-eye left"></span><span class="buddy-eye right"></span><span class="buddy-mouth">⌣</span></div><p><strong>Eye Buddy</strong><span>Level 4</span></p><div class="xp-track"><span style="width:72%"></span></div><div class="reward-stamp">+18 XP</div></div><div class="story-copy"><p class="story-index">B / A tiny reason to keep the habit</p><h3>Complete a break.<br>Make a small friend proud.</h3><p>Eye Buddy gains 10–24 XP after every completed break and levels up over time. It’s deliberately lightweight: a little feedback, not a streak that scolds you.</p></div></article>
+      <article class="story settings-story"><div class="story-copy"><p class="story-index">C / Make it yours</p><h3>Your schedule, your sound, your theme.</h3><p>The 20-20-20 rhythm is the default, not a lock-in. Adjust the interval, break length, snooze, blink prompt, built-in sound, or theme from one compact settings view.</p></div><div class="settings-preview" aria-label="Blink and Break settings preview"><div class="settings-preview-head"><strong>Settings</strong><span>Saved locally</span></div><div class="setting-preview-row"><span>Work interval</span><b>20 min</b></div><div class="setting-preview-row"><span>Break duration</span><b>20 sec</b></div><div class="setting-preview-row"><span>Snooze</span><b>5 min</b></div><div class="setting-preview-row"><span>Blink reminders</span><i class="toggle-on"></i></div><div class="setting-preview-row"><span>Dark mode</span><i class="toggle-on"></i></div><div class="setting-preview-row"><span>Sound</span><b>Gentle Bell</b></div></div></article>
+    </section>
+
+    <section class="privacy-section" id="privacy" aria-labelledby="privacy-title"><div class="privacy-copy"><div class="section-kicker light"><span>04</span><span>Privacy, plainly</span></div><h2 id="privacy-title">Blink &amp; Break doesn’t know what websites you visit.<br><em>And it doesn’t need to.</em></h2><p>The extension has no account system and requests only the Chrome permissions its core features use. Settings and progress are stored with Chrome storage.</p></div><div class="permissions-receipt" aria-label="Extension permissions receipt"><div class="receipt-head"><svg><use href="#icon-eye"></use></svg><div><strong>Permission receipt</strong><span>Verified against manifest v1.0.1</span></div></div><div class="receipt-rule"></div><p>Requested</p><ul class="permission-list requested"><li><span>✓</span><div><strong>Notifications</strong><small>Show the reminder</small></div></li><li><span>✓</span><div><strong>Alarms</strong><small>Schedule the next break</small></div></li><li><span>✓</span><div><strong>Storage</strong><small>Remember settings and progress</small></div></li></ul><div class="receipt-rule"></div><p>Not requested</p><ul class="permission-list denied"><li><span>×</span>Browsing history</li><li><span>×</span>Access to every webpage</li><li><span>×</span>Location</li><li><span>×</span>Personal information</li></ul><div class="receipt-total"><span>Accounts</span><strong>None</strong></div></div></section>
+
+    <section class="faq-section" aria-labelledby="faq-title"><div class="faq-heading"><div class="section-kicker"><span>05</span><span>Good to know</span></div><h2 id="faq-title">A few honest answers.</h2></div><div class="faq-list"><details><summary>Is Blink &amp; Break free?</summary><p>Yes. The current extension is free, with no account and no ads.</p></details><details><summary>Does it collect my browsing data?</summary><p>No browsing-history or webpage-access permission appears in the extension manifest. Blink &amp; Break uses alarms, notifications, and storage.</p></details><details><summary>Can I customize the intervals?</summary><p>Yes. The reminder interval can be 1–1440 minutes, breaks can be 5–300 seconds, and snooze can be 1–120 minutes.</p></details><details><summary>What happens when I pause?</summary><p>The remaining time is stored. When you resume, the timer continues from that point instead of starting over.</p></details><details><summary>What is Eye Buddy?</summary><p>Eye Buddy is the small in-extension companion. Completed breaks earn XP, and enough XP raises its level.</p></details><details><summary>Does it work offline?</summary><p>The timer, notifications, settings, and progress logic live inside the extension and do not require a Blink &amp; Break account or remote service.</p></details></div></section>
+
+    <section class="final-cta" aria-labelledby="cta-title"><div class="final-eye" aria-hidden="true"><svg><use href="#icon-eye"></use></svg></div><p class="eyebrow">That’s it. No grand transformation.</p><h2 id="cta-title">Your next eye break<br>is 20 minutes away.</h2><a class="button button-light" href="https://chromewebstore.google.com/detail/blink-break-eye-care/bpfpaalmndaecjcjmhiphfdgcfajiapf?hl=en" target="_blank" rel="noopener noreferrer">Add to Chrome — Free <svg aria-hidden="true"><use href="#icon-arrow"></use></svg></a><p>Free · No account · No ads · Alarms, notifications &amp; storage only</p></section>
+  </main>
+
+  <footer><div class="footer-brand"><a class="brand" href="#top"><svg aria-hidden="true"><use href="#icon-eye"></use></svg><span>Blink <em>&amp;</em> Break</span></a><p>A small Chrome extension for a common screen-break habit.</p></div><div class="footer-links"><a href="#how-it-works">How it works</a><a href="#try">Try it</a><a href="#privacy">Privacy</a><a href="https://forms.gle/QAdW4YE3gHEoK4e16" target="_blank" rel="noopener noreferrer">Report a bug</a><a href="https://www.linkedin.com/in/taransh-goyal-6a52b8296/" target="_blank" rel="noopener noreferrer">Built by Taransh ↗</a></div><p class="copyright">© 2026 Blink &amp; Break</p></footer>
+  <div class="sr-only" id="demo-announcer" aria-live="polite"></div><script src="script.js"></script>
+</body>
+</html>
