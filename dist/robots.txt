@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://blinkandbreak.vercel.app/sitemap.xml
