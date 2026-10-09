@@ -1,0 +1,31 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/testimonials.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/dist",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/dist/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/dist/index.html",
+      "destination": "/",
+      "permanent": true
+    }
+  ]
+}

@@ -5,21 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BreakChime – 20-20-20 Eye Break Reminder for Chrome</title>
   <meta name="description" content="BreakChime is a free Chrome extension for 20-20-20 eye and screen break reminders while coding, studying, or working. No account or ads.">
-  <link rel="canonical" href="https://blinkandbreak.vercel.app/">
+  <link rel="canonical" href="https://breakchime.vercel.app/">
   <meta name="theme-color" content="#08111f">
   <meta property="og:title" content="BreakChime – 20-20-20 Eye Break Reminder for Chrome">
   <meta property="og:description" content="BreakChime is a free Chrome extension for 20-20-20 eye and screen break reminders while coding, studying, or working. No account or ads.">
-  <meta property="og:url" content="https://blinkandbreak.vercel.app/">
+  <meta property="og:url" content="https://breakchime.vercel.app/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="BreakChime">
-  <meta property="og:image" content="https://blinkandbreak.vercel.app/og.png">
+  <meta property="og:image" content="https://breakchime.vercel.app/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="BreakChime eye break timer and the 20-20-20 reminder">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="BreakChime – 20-20-20 Eye Break Reminder for Chrome">
   <meta name="twitter:description" content="BreakChime is a free Chrome extension for 20-20-20 eye and screen break reminders while coding, studying, or working. No account or ads.">
-  <meta name="twitter:image" content="https://blinkandbreak.vercel.app/og.png">
+  <meta name="twitter:image" content="https://breakchime.vercel.app/og.png">
   <meta name="twitter:image:alt" content="BreakChime eye break timer and the 20-20-20 reminder">
   <link rel="icon" href="icons/icon128.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,7 +39,15 @@
     "price": "0",
     "priceCurrency": "USD"
   },
-  "url": "https://blinkandbreak.vercel.app/"
+  "url": "https://breakchime.vercel.app/"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "BreakChime",
+  "url": "https://breakchime.vercel.app/"
 }
   </script>
 </head>
@@ -86,10 +94,10 @@
     </section>
 
     <section class="demo-section" id="try" aria-labelledby="demo-title">
-      <div class="section-heading section-heading-centered"><p class="section-label">Interactive demo</p><h2 id="demo-title">See what happens in 20 seconds.</h2><p>This demo works like BreakChime. Start a break, snooze it, change a setting, or let Eye Buddy earn XP.</p></div>
+      <div class="section-heading section-heading-centered"><p class="section-label">Interactive demo</p><h2 id="demo-title">See what happens in 20 seconds.</h2><p>Try a simplified preview of BreakChime. Start a break, snooze it, change a setting, or let Eye Buddy earn XP.</p></div>
       <div class="demo-shell">
         <div class="demo-browser-toolbar" aria-hidden="true"><div class="demo-tab"><img src="icons/icon128.png" alt=""><span>BreakChime demo</span></div><div class="demo-address">BreakChime / demo</div><img class="toolbar-logo" src="icons/icon128.png" alt=""></div>
-        <div class="demo-control-bar" aria-label="Demo shortcuts"><button type="button" id="show-reminder">Show reminder</button><button type="button" class="control-primary" id="start-break-shortcut">Start a break now</button><span>Everything here is based on the extension.</span></div>
+        <div class="demo-control-bar" aria-label="Demo shortcuts"><button type="button" id="show-reminder">Show reminder</button><button type="button" class="control-primary" id="start-break-shortcut">Start a break now</button><span>Preview only — your extension settings stay unchanged.</span></div>
         <div class="notification" id="demo-notification" role="status" aria-live="polite" hidden><div class="notification-top"><img src="icons/icon128.png" alt=""><div><strong>Time for an eye break! 👀</strong><span>BreakChime</span></div><button type="button" id="close-notification" aria-label="Dismiss notification"><svg><use href="#icon-close"></use></svg></button></div><p>Press “Start break” to begin your 20-second break.</p><div class="notification-actions"><button type="button" id="notification-start">▶ Start break</button><button type="button" id="notification-snooze">💤 Snooze</button></div></div>
         <div class="demo-canvas">
           <div class="demo-context" aria-hidden="true"><span class="context-eyebrow">A QUIET PLACE TO WORK</span><span class="context-title"></span><span class="context-line line-a"></span><span class="context-line line-b"></span><span class="context-line line-c"></span><div class="context-panels"><span></span><span></span></div></div>
@@ -118,15 +126,28 @@
       </div>
     </section>
 
-    <section class="rule-section" id="how-it-works" aria-labelledby="rule-title"><div class="rule-copy"><p class="section-label">The 20-20-20 habit</p><h2 id="rule-title">How the 20-20-20 rule works.</h2><p>Every 20 minutes, look at something about 20 feet away for 20 seconds. BreakChime remembers the timing for you.</p><p class="medical-note">A reminder and habit tool—not a medical treatment.</p></div><div class="rule-numbers" aria-label="Every 20 minutes, look 20 feet away for 20 seconds"><div><strong>20</strong><span>minutes</span></div><div><strong>20</strong><span>feet</span></div><div><strong>20</strong><span>seconds</span></div></div></section>
+    <section class="rule-section" id="how-it-works" aria-labelledby="rule-title">
+      <div class="rule-copy">
+        <p class="section-label">The 20-20-20 habit</p>
+        <h2 id="rule-title">Set up 20-20-20 reminders in Chrome.</h2>
+        <p>The 20-20-20 rule is simple: every 20 minutes, look at something about 20 feet away for 20 seconds. BreakChime keeps the reminder timer for you.</p>
+        <ol class="setup-steps">
+          <li><a href="https://chromewebstore.google.com/detail/blink-break-eye-care/bpfpaalmndaecjcjmhiphfdgcfajiapf?hl=en" target="_blank" rel="noopener noreferrer">Add BreakChime to Chrome</a>, then open it from Chrome’s Extensions menu.</li>
+          <li>Keep the default 20-minute interval and 20-second break, or open Settings → Timing to enter your own values. Click Save Settings to apply them.</li>
+          <li>Keep Chrome running and your computer awake. When a reminder arrives, look away from your screen. Pause the timer when you need to, or snooze a reminder until later.</li>
+        </ol>
+        <p class="medical-note">A reminder and habit tool—not a medical treatment.</p>
+      </div>
+      <div class="rule-numbers" aria-label="Every 20 minutes, look 20 feet away for 20 seconds"><div><strong>20</strong><span>minutes</span></div><div><strong>20</strong><span>feet</span></div><div><strong>20</strong><span>seconds</span></div></div>
+    </section>
 
     <section class="buddy-section" aria-labelledby="buddy-title"><div class="buddy-showcase"><div class="pet-bubble">We make a great team!</div><div class="pet-sprite pet-sprite-large"><div class="pet-body happy"><div class="pet-eye left-eye"></div><div class="pet-eye right-eye"></div><div class="pet-mouth">◡</div></div></div><div class="buddy-stats-large"><div><span>Eye Buddy</span><strong>Level 3</strong></div><div class="pet-xp-bar"><div class="pet-xp-fill" style="width:69.7%"></div><span class="xp-text">209/300 XP</span></div></div></div><div class="buddy-copy"><p class="section-label">A tiny bit of encouragement</p><h2 id="buddy-title">Hi. I’m Eye Buddy.</h2><p class="buddy-lede">You take breaks. I level up.</p><p>Complete a break and Eye Buddy earns 10–24 XP. It’s a small reward for keeping a simple habit—nothing to maintain, and no streak to worry about.</p><div class="buddy-flow"><span>Complete a break</span><b>→</b><span>Earn XP</span><b>→</b><span>Level up</span></div></div></section>
 
-    <section class="privacy-section" id="privacy" aria-labelledby="privacy-title"><div class="privacy-copy"><p class="section-label">Privacy, plainly</p><h2 id="privacy-title">It doesn’t know what you’re browsing.</h2><p>BreakChime has no account system. Its manifest requests three permissions, each tied to a feature you can see.</p><p class="manifest-note"><span></span>Verified against manifest v1.0.1</p></div><div class="permissions-receipt" aria-label="Extension permissions receipt"><div class="receipt-head"><img src="icons/icon128.png" alt=""><div><strong>BreakChime requests</strong><span>Chrome permissions</span></div></div><ul class="permission-list requested"><li><span>✓</span><div><strong>Notifications</strong><small>To tell you it’s break time.</small></div></li><li><span>✓</span><div><strong>Alarms</strong><small>To schedule reminders.</small></div></li><li><span>✓</span><div><strong>Storage</strong><small>To remember settings and progress.</small></div></li></ul><div class="receipt-divider"></div><p>Does not request</p><ul class="not-requested"><li>× Browsing history</li><li>× Access to webpages</li><li>× Location</li><li>× Personal information</li></ul></div></section>
+    <section class="privacy-section" id="privacy" aria-labelledby="privacy-title"><div class="privacy-copy"><p class="section-label">Privacy, plainly</p><h2 id="privacy-title">It doesn’t know what you’re browsing.</h2><p>BreakChime has no account system. Its manifest requests four permissions, each tied to a specific reminder feature.</p><p class="manifest-note"><span></span>No browsing history or webpage access</p></div><div class="permissions-receipt" aria-label="Extension permissions receipt"><div class="receipt-head"><img src="icons/icon128.png" alt=""><div><strong>BreakChime requests</strong><span>Chrome permissions</span></div></div><ul class="permission-list requested"><li><span>✓</span><div><strong>Notifications</strong><small>To tell you it’s break time.</small></div></li><li><span>✓</span><div><strong>Alarms</strong><small>To schedule reminders.</small></div></li><li><span>✓</span><div><strong>Storage</strong><small>To remember settings and progress.</small></div></li><li><span>✓</span><div><strong>Offscreen audio</strong><small>To play your reminder chime while the popup is closed.</small></div></li></ul><div class="receipt-divider"></div><p>Does not request</p><ul class="not-requested"><li>× Browsing history</li><li>× Access to webpages</li><li>× Location</li><li>× Personal information</li></ul></div></section>
 
-    <section class="custom-section" aria-labelledby="custom-title"><div class="custom-copy"><p class="section-label">Customization</p><h2 id="custom-title">Your breaks. Your rules.</h2><p>The default is 20 minutes of work and a 20-second break. Change the timing, snooze length, blink prompt, sound, or theme from the same compact settings view.</p><a class="text-link" href="#try">Try the settings in the demo <span aria-hidden="true">↑</span></a></div><div class="settings-preview" aria-label="BreakChime settings preview"><div class="settings-preview-head"><strong>Settings</strong><span>×</span></div><div class="preview-setting"><span>Reminder Interval (minutes)</span><b>20</b><small>How often to remind you (1–1440 minutes)</small></div><div class="preview-setting"><span>Break Duration (seconds)</span><b>20</b><small>How long each break should last (5–300 seconds)</small></div><div class="preview-setting"><span>Snooze Duration (minutes)</span><b>5</b><small>How long to delay when you snooze (1–120 minutes)</small></div><div class="preview-toggle"><div><strong>Blink Reminders</strong><small>Show blink exercise during breaks</small></div><i></i></div><div class="preview-toggle"><div><strong>Dark Mode</strong><small>Easier on the eyes in low light</small></div><i></i></div><div class="preview-toggle"><div><strong>Sound Notifications</strong><small>Play sound when break starts</small></div><i></i></div></div></section>
+    <section class="custom-section" aria-labelledby="custom-title"><div class="custom-copy"><p class="section-label">Customization</p><h2 id="custom-title">Blink reminders for screen breaks.</h2><p>BreakChime’s Blink Reminders setting adds “blink fully” to the look-away prompt during your break. Turn it on or off in Settings → Break Experience. It’s a gentle prompt during scheduled breaks; it doesn’t watch your eyes or detect blinking.</p><p>Make the rest of the break your own: adjust the reminder interval, break duration, and snooze length under Timing. Choose a reminder sound or mute it under Sound, and switch between light and dark mode under Break Experience.</p><a class="text-link" href="#try">Try the settings in the demo <span aria-hidden="true">↑</span></a></div><div class="settings-preview" aria-label="BreakChime settings preview"><div class="settings-preview-head"><strong>Settings</strong><span>×</span></div><div class="preview-setting"><span>Reminder Interval (minutes)</span><b>20</b><small>How often to remind you (1–1440 minutes)</small></div><div class="preview-setting"><span>Break Duration (seconds)</span><b>20</b><small>How long each break should last (5–300 seconds)</small></div><div class="preview-setting"><span>Snooze Duration (minutes)</span><b>5</b><small>How long to delay when you snooze (1–120 minutes)</small></div><div class="preview-toggle"><div><strong>Blink Reminders</strong><small>Show blink exercise during breaks</small></div><i></i></div><div class="preview-toggle"><div><strong>Dark Mode</strong><small>Easier on the eyes in low light</small></div><i></i></div><div class="preview-toggle"><div><strong>Sound Notifications</strong><small>Play sound when break starts</small></div><i></i></div></div></section>
 
-    <section class="faq-section" id="faq" aria-labelledby="faq-title"><div><p class="section-label">Good to know</p><h2 id="faq-title">Frequently asked questions.</h2></div><div class="faq-list"><details><summary>Is BreakChime free?</summary><p>Yes. The current extension is free, with no account and no ads.</p></details><details><summary>What happens when I pause?</summary><p>The remaining time is stored. Resume continues from that point instead of starting over.</p></details><details><summary>Can I change the timing?</summary><p>Yes. Reminder intervals are 1–1440 minutes, breaks are 5–300 seconds, and snooze is 1–120 minutes.</p></details><details><summary>What is Eye Buddy?</summary><p>Eye Buddy is the round blue companion inside the extension. Completed breaks earn XP, and enough XP raises its level.</p></details></div></section>
+    <section class="faq-section" id="faq" aria-labelledby="faq-title"><div><p class="section-label">Good to know</p><h2 id="faq-title">Frequently asked questions.</h2></div><div class="faq-list"><details><summary>Is BreakChime free?</summary><p>Yes. The current extension is free, with no account and no ads.</p></details><details><summary>Is BreakChime the same as Blink &amp; Break?</summary><p>Yes. BreakChime is the new name for Blink &amp; Break. The Add to Chrome links use the same extension listing.</p></details><details><summary>What happens when I pause?</summary><p>The remaining time is stored. Resume continues from that point instead of starting over.</p></details><details><summary>Can I change the timing?</summary><p>Yes. Reminder intervals are 1–1440 minutes, breaks are 5–300 seconds, and snooze is 1–120 minutes. Save Settings applies the new interval immediately; a paused timer stays paused.</p></details><details><summary>What is Eye Buddy?</summary><p>Eye Buddy is the round blue companion inside the extension. Completed breaks earn XP, and enough XP raises its level.</p></details></div></section>
 
     <section class="final-cta" aria-labelledby="cta-title"><img src="icons/icon128.png" alt="BreakChime superhero eye mascot"><p class="section-label">Ready when you are</p><h2 id="cta-title">Your next eye break is 20 minutes away.</h2><a class="button" href="https://chromewebstore.google.com/detail/blink-break-eye-care/bpfpaalmndaecjcjmhiphfdgcfajiapf?hl=en" target="_blank" rel="noopener noreferrer">Add BreakChime to Chrome — Free <svg aria-hidden="true"><use href="#icon-arrow"></use></svg></a><p>No account · No ads · Minimal permissions</p></section>
   </main>

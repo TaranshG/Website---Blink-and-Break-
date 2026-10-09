@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>BreakChime social card source</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+    body { padding: 62px 70px; background: radial-gradient(ellipse at top right, #10203a, #08111f 65%); color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .brand { display: flex; align-items: center; gap: 15px; font-size: 26px; font-weight: 750; }
+    .brand img { width: 54px; height: 54px; }
+    main { display: flex; align-items: center; justify-content: space-between; gap: 60px; margin-top: 64px; }
+    h1 { margin: 0 0 24px; font-size: 64px; line-height: 1.06; letter-spacing: -3px; font-weight: 750; }
+    h1 span { color: #60a5fa; }
+    p { margin: 0; color: #aab6c8; font-size: 23px; }
+    .timer-card { flex: 0 0 330px; padding: 25px; border: 1px solid #27354b; border-radius: 24px; background: #101a2d; box-shadow: 0 22px 48px #0005; }
+    .timer-card .brand { gap: 10px; font-size: 22px; }
+    .timer-card img { width: 38px; height: 38px; }
+    .countdown { margin-top: 26px; padding: 24px; border: 1px solid #ffffff0f; border-radius: 16px; background: #1f2937; }
+    .countdown p { font-size: 15px; }
+    .countdown strong { display: block; margin: 15px 0; color: #60a5fa; text-align: center; font-size: 57px; line-height: 1; }
+    .track { height: 7px; border-radius: 8px; background: #374151; }
+    .track span { display: block; width: 12%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #4f8cff, #6366f1); }
+    .countdown .active { margin-top: 12px; color: #34d399; text-align: center; font-size: 14px; }
+    .rule { display: flex; justify-content: space-between; margin-top: 22px; color: #aab6c8; font-size: 11px; font-weight: 700; letter-spacing: .8px; }
+    footer { position: absolute; left: 70px; bottom: 54px; color: #78869b; font-size: 17px; }
+  </style>
+</head>
+<body>
+  <div class="brand"><img src="../icons/icon128.png" alt="">BreakChime</div>
+  <main>
+    <div><h1>Give your eyes a break.<br><span>Keep your focus.</span></h1><p>A gentle 20-20-20 reminder for Chrome.</p></div>
+    <div class="timer-card">
+      <div class="brand"><img src="../icons/icon128.png" alt="">BreakChime</div>
+      <div class="countdown"><p>Next break in</p><strong>18:34</strong><div class="track"><span></span></div><p class="active">Active</p></div>
+      <div class="rule"><span>20 MINUTES</span><span>20 FEET</span><span>20 SECONDS</span></div>
+    </div>
+  </main>
+  <footer>No account · No ads · Minimal permissions</footer>
+</body>
+</html>

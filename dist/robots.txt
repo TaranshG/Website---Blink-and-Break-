@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://blinkandbreak.vercel.app/sitemap.xml
+Sitemap: https://breakchime.vercel.app/sitemap.xml
